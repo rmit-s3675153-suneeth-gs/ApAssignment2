@@ -6,10 +6,10 @@ public class Child extends Person {
 
 	private ArrayList<String> parent = new ArrayList(2);
 
-	public Child(String Name,String Photo,int Age,String Status,String State,String Gender) {
+	public Child(String Name,String Photo,int Age,String Status,String State,String Gender,String parent1,String parent2) {
 		super(Name,Photo, Age,Status,State,Gender);// Super class constructor storing data
-		//parent.add(parent1);
-		//parent.add(parent2);//adding data into arraylist from constructor
+		parent.add(parent1);
+		parent.add(parent2);//adding data into arraylist from constructor
 	}
 	public void setParent(String p1,String p2) {
 		parent.add(p1);
