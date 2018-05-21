@@ -2,9 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
-public class Child extends Person {
+import model.interfaces.Classmate;
 
-	private ArrayList<String> parent = new ArrayList(2);
+public class Child extends Person implements Classmate {
+
+	private ArrayList<String> parent = new ArrayList<String>(2);
+	private ArrayList<String> classmate = new ArrayList<String>();
 
 	public Child(String Name,String Photo,int Age,String Status,String State,String Gender,String parent1,String parent2) {
 		super(Name,Photo, Age,Status,State,Gender);// Super class constructor storing data
@@ -20,5 +23,13 @@ public class Child extends Person {
 	}
 	public String getParent2(){
 		return parent.get(1);
+	}
+	@Override
+	public void setClassmate(String name) {
+		classmate.add(name);
+	}
+	@Override
+	public ArrayList<String> getClassmate() {
+		return classmate;
 	}
 }

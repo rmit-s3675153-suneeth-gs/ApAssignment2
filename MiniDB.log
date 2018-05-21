@@ -1,0 +1,25 @@
+/*C3*/SET SCHEMA PUBLIC
+drop table person if exists
+create table person(name varchar(20) not null,photo varchar(20),age integer,status varchar(20), state varchar(20),gender varchar(20),primary key(name))
+drop table parent if exists
+create table parent(name varchar(20) not null, type varchar(20),parent1 varchar(20),parent2 varchar(20))
+drop table relation if exists
+create table relation(name1 varchar(20) not null,name2 varchar(20),relation varchar(20))
+INSERT INTO RELATION VALUES('Alex Smith','Ben Turner','friends')
+COMMIT
+INSERT INTO RELATION VALUES('Ben Turner','Zoe Foster','couple')
+COMMIT
+INSERT INTO RELATION VALUES('Ben Turner','Aark Turner','parent')
+COMMIT
+INSERT INTO RELATION VALUES('Aark Turner','Zoe Foster','parent')
+COMMIT
+INSERT INTO PERSON VALUES('Aark Turner','\u201cMark.jpeg\u201d',2,'\u201c\u201d','VIC','M')
+COMMIT
+INSERT INTO PARENT VALUES('Aark Turner','YOUNGCHILD','Zoe Foster','Ben Turner')
+COMMIT
+INSERT INTO PERSON VALUES('Alex Smith','\u201c\u201d',21,'\u201cstudent at RMIT\u201d','WA','M')
+COMMIT
+INSERT INTO PERSON VALUES('Ben Turner','\u201cBenPhoto.jpg\u201d',35,'\u201cmanager at Coles\u201d','VIC','M')
+COMMIT
+INSERT INTO PERSON VALUES('Zoe Foster','\u201c\u201d',28,'\u201cFounder of ZFX\u201d','VIC','F')
+COMMIT

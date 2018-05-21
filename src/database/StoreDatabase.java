@@ -1,5 +1,7 @@
 package database;
 import controller.Driver;
+import exception.NoParentException;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -143,7 +145,7 @@ public class StoreDatabase {
 		}
 	}
 	
-	public static boolean check(String couple1,String couple2,String Relation){
+	public static boolean check(String couple1,String couple2,String Relation) throws NoParentException{
 		boolean check1 =false,check2 =false;
 		int age1=0,age2 = 0;
 		try{
@@ -163,12 +165,10 @@ public class StoreDatabase {
 				rs.next();
 				age2=getAge(couple2);
 			}
-			if(check1==false||check2==false){
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText("Entered Parent doesnt exist in the System,So you cannot Add The User");
-				alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea("PLease enter again")));
-				alert.showAndWait();
-			}else{
+			if(check1==false||check2==false)
+				throw new NoParentException("Entered Parent doesnt exist in the System,So you cannot Add The User");
+				
+			else{
 				boolean couple_check=false;
 				if(age1>16&&age2>16){
 					rs = connection.prepareStatement("select count(name1) from relation  where name1 = '"+couple1+"' and name2 ='"+couple2+"' and relation ='"+Relation+"';").executeQuery();
@@ -180,21 +180,13 @@ public class StoreDatabase {
 					if(rs.getInt(1)==1)
 						couple_check=true;
 					if(!couple_check){
-						Alert alert = new Alert(Alert.AlertType.ERROR);
-						alert.setHeaderText("Entered Parents are not couples");
-						alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea("PLease enter again")));
-						alert.showAndWait();
+						throw new NoParentException("Entered Parents are not couples");
 					}
 					else{
 						return true;
 					}
-				}else{
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-					alert.setHeaderText("Entered Parent is not an Child");
-					alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea("PLease enter again")));
-					alert.showAndWait();
-					
-				}
+				}else
+					throw new NoParentException("Entered Parent does not have an Child");
 				
 
 			}
@@ -218,12 +210,7 @@ public class StoreDatabase {
 					relation = "child";
 				}
 				
-			}
-//			if(relation!=null)
-//				found=true;
-//			if(!found){
-//				
-//			}
+			}	
 		} catch (SQLException e) {
 			int flag=0;
 			try {
@@ -238,13 +225,9 @@ public class StoreDatabase {
 				}
 				flag=1;
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
-//			if(relation!=null)
-//				found=true;
-//			relation = null;
 			if(flag==0)
 			System.out.println("Relation error");
 		}
@@ -364,10 +347,72 @@ public class StoreDatabase {
 			
 			}
 		} catch (SQLException e) {
-			System.out.println("Adult doesnt have a c");
+			System.out.println("Adult doesnt have a child`");
 		}
 
 		return flag;
 	}
+	public static boolean name_exists(String name_rel){
+		boolean flag=false;
+		try {
+			rs = connection.prepareStatement("select count(name) from person  where name = '"+name_rel+"';").executeQuery();
+			rs.next();
+			if(rs.getInt(1)==1)
+				flag=true;
+			
+		} catch (SQLException e) {
+			System.out.println("Error occured in checking whether name exists or not");
+		}
+		return flag;
+		
+	}
+	public static String CheckRelationExists(String name, String name_rel, String rel_type) {
+		try {
+			rs = connection.prepareStatement("select count(name1) from relation  where name1 = '"+name+"' and name2 ='"+name_rel+"';").executeQuery();
+			rs.next();
+			if(rs.getInt(1)==0){
+				rs = connection.prepareStatement("select count(name1) from relation  where name1 = '"+name_rel+"' and name2 ='"+name+"';").executeQuery();
+				rs.next();
+				if(rs.getInt(1)==0)
+					return "Nil";
+				else{
+					rs = connection.prepareStatement("select relation from relation  where name1 = '"+name_rel+"' and name2 ='"+name+"';").executeQuery();
+					rs.next();
+					return rs.getString(1);
+				}
+			}
+			else{
+				rs = connection.prepareStatement("select relation from relation  where name1 = '"+name+"' and name2 ='"+name_rel+"';").executeQuery();
+				rs.next();
+				return rs.getString(1);
+			}
+		}catch(SQLException e){
+				System.out.println("Error while checking whether relation exist!");
+				return null;
+		}
+	}
+	public static int AlreadyCouple(String name, String name_rel){
+		try {
+			rs = connection.prepareStatement("select count(name1) from relation  where name1 = '"+name+"' or name2 ='"+name_rel+"'and relation = 'couple';").executeQuery();
+			rs.next();
+			if(rs.getInt(1)==0){
+				rs = connection.prepareStatement("select count(name1) from relation  where name1 = '"+name_rel+"' or name2 ='"+name+"'and relation = 'couple';").executeQuery();
+				rs.next();
+				if(rs.getInt(1)==0)
+					return 0;
+				else{
+					
+					return 1;
+				}
+			}
+			else
+				return 1;
+			
+		}catch(SQLException e){
+				System.out.println("Error while checking whether relation exist!");
+				return 0;
+		}
+	}
+		
 
 }

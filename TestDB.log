@@ -1,0 +1,4 @@
+/*C7*/SET SCHEMA PUBLIC
+drop table adult if exists
+create table adult(name varchar(20) not null,photo varchar(20),age integer,status varchar(20), state varchar(20),gender varchar(20))
+drop table child if exists

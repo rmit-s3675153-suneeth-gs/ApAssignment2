@@ -5,8 +5,14 @@ import java.util.Optional;
 
 import controller.Driver;
 import database.StoreDatabase;
+import exception.NoAvailableException;
 import exception.NoParentException;
 import exception.NoSuchAgeException;
+import exception.NotToBeClassmateException;
+import exception.NotToBeColleagueException;
+import exception.NotToBeCoupledException;
+import exception.NotToBeFriendsException;
+import exception.TooYoungException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -137,7 +143,6 @@ public class UserWindow {
 		    try {
 				Driver.Delete(name);
 			} catch (NoParentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -182,7 +187,7 @@ public class UserWindow {
         TextField textName = new TextField();
         Button butBack = new Button("Back");
         ComboBox<String> comName = new ComboBox<String>();
-        comName.getItems().addAll("Friend","Couple","Colleague","Parent","Classmate");
+        comName.getItems().addAll("friend","couple","colleague","parent","classmate","sibling");
         comName.setPromptText("Choose : ");
         
         GridPane.setConstraints(relName, 0, 3);
@@ -190,6 +195,25 @@ public class UserWindow {
 		GridPane.setConstraints(butName, 5, 3);
 		GridPane.setConstraints(butBack, 5, 4);
 		GridPane.setConstraints(comName, 2, 3);
+		butName.setOnAction(e->{
+			String Name_rel = textName.getText();
+			try {
+				Driver.RelationCheck(name,Name_rel,comName.getValue());
+			} catch (TooYoungException e1) {
+				System.err.println(e1);
+			} catch (NotToBeFriendsException e1) {
+				System.err.println(e1);
+			} catch (NoAvailableException e1) {
+				System.err.println(e1);
+			} catch (NotToBeCoupledException e1) {
+				System.err.println(e1);
+			} catch (NotToBeClassmateException e1) {
+				System.err.println(e1);
+			} catch (NotToBeColleagueException e1) {
+				System.err.println(e1);
+			}
+			UseWin.setScene(scene);
+		});
 		
 		butBack.setOnAction(e->{
 			UseWin.setScene(scene);
