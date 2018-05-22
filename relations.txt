@@ -1,4 +1,4 @@
 Alex Smith,Ben Turner,friends
 Ben Turner,Zoe Foster,couple
-Ben Turner,Aark Turner,parent
-Aark Turner,Zoe Foster,parent
+Ben Turner,Mark Turner,parent
+Mark Turner,Zoe Foster,parent

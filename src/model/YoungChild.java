@@ -1,12 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-
+/*
+ * YoungCHild from Abstract class Person inheritance
+ */
 public class YoungChild extends Person {
-//	public YoungChild(String Name,String Photo,int Age,String Status,String State,String Gender) {
-//		super(Name,Photo, Age,Status,State,Gender);//giving data to super class
-//	}
-	private ArrayList<String> parent = new ArrayList(2);
+	private ArrayList<String> parent = new ArrayList<String>(2);
 
 	public YoungChild(String Name,String Photo,int Age,String Status,String State,String Gender,String parent1,String parent2) {
 		super(Name,Photo, Age,Status,State,Gender);// Super class constructor storing data

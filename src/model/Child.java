@@ -25,11 +25,11 @@ public class Child extends Person implements Classmate {
 		return parent.get(1);
 	}
 	@Override
-	public void setClassmate(String name) {
+	public void setClassmate(String name) { //setter for classmate
 		classmate.add(name);
 	}
 	@Override
-	public ArrayList<String> getClassmate() {
+	public ArrayList<String> getClassmate() { //getter for classmate
 		return classmate;
 	}
 }

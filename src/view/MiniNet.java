@@ -1,12 +1,16 @@
 package view;
+import java.sql.SQLException;
 
+/*
+ * MiniNet - Author - Suneeth
+ * this is where main method is invoked Main Window
+ */
 import controller.Driver;
 import database.StoreDatabase;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -15,20 +19,19 @@ public class MiniNet extends Application {
 	public MiniNet(){
 		
 	}
-	public static void main(String[] args){
+	public static void main(String[] args) throws SQLException{
 		Driver d = new Driver();
 		StoreDatabase sd= new StoreDatabase();
-		sd.createPersonTable();
-		d.readRelationsFile();
-		d.ReadDetailsFile();
+		sd.createPersonTable(); // creating tables
+		d.readRelationsFile();	//reading from relation file	
+		d.ReadDetailsFile();	//reading from the people file
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage Pstage) throws Exception {
-		// TODO Auto-generated method stub
 		window=Pstage;
-		window.setTitle("asd");
+		window.setTitle("MININET");
 		Button b1 = new Button("  AddUser ");
 		Button b2 = new Button(" ListUser ");
 		Button b3 = new Button("SelectUser");

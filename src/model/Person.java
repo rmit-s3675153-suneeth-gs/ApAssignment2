@@ -1,6 +1,7 @@
 package model;
-
-import java.util.ArrayList;
+/*
+ * Abstract class Person - Vishal
+ */
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,6 @@ public abstract class Person {
 	private String Status;
 	private String State;
 	private String Gender;
-	private ArrayList<String> friends= new ArrayList<String>();
 
 	private Map<String,String>Relation=new HashMap<String,String>();
 	public Person(String Name,String Photo,int Age,String Status,String State,String Gender){//constructor fetching data
@@ -25,7 +25,6 @@ public abstract class Person {
 	public void setName(String s){//setters to fetch data
 		Name=s;
 	}
-	
 	public void setAge(int a){
 		Age=a;
 	}

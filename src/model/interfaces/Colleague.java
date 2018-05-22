@@ -1,5 +1,7 @@
 package model.interfaces;
-
+/*
+ * Interface Colleague - VIshal
+ */
 import java.util.ArrayList;
 
 public interface Colleague {

@@ -1,5 +1,8 @@
 package view;
-
+/*
+ * Author - Vishal
+ * Small window used to select users
+ */
 import controller.Driver;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -24,13 +27,9 @@ public class SelectUser  {
 	    Name= new ComboBox<String>();
 	    Name.getItems().addAll(Driver.ListUser());
 	    Name.setPromptText("Choose ");
-	    
-//		Type.getItems().addAll(user);
-//		Type.setPromptText("Choose : ");
-//		GridPane.setConstraints(Type, 0, 0);
 	    go.setOnAction(e->{
 	    	select.close();
-	    	UserWindow.display(Name.getValue());
+	    	UserWindow.display(Name.getValue());// gives names of the users who are there 
 	    	
 	    });
 	    close.setOnAction(e-> {
@@ -43,7 +42,7 @@ public class SelectUser  {
         grid.getChildren().addAll(Name);
 		grid.getChildren().add(close);
 		grid.getChildren().add(go);
-		Scene scene = new Scene(grid,300,100);
+		Scene scene = new Scene(grid,400,400);
 		select.setScene(scene);
 		select.show();
 		
